@@ -35,9 +35,20 @@ func (app *App) Handler (request events.APIGatewayProxyRequest)(events.APIGatewa
 			},nil
 	}
 	response := events.APIGatewayProxyResponse{
-		Body:strings(responseJSON)
+		Body:strings(responseJSON),
+		StatusCode: http.StatusOK,
+		Headers: map[string]string{
+			"Content-Type":     "text/plain",
+			"Access-Control-Allow-Origin": "*",
+			"Access-Control-Allow-Headers": "Content-Type",
+			"Access-Control-Allow-Methods": "OPTIONS, POST, GET"
+			"Access-Control-Allow-Credentials": "true",
+		},
+		// these are needed for cors
+
+
 	}
-	return nil
+	return response,nil
 }
 
 
